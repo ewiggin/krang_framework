@@ -189,8 +189,8 @@
     </p>
 	</div>
 	<div class="buttons-container">
-		<a class="border-button" href="http://nabc-championsleague.com/"><?php echo $i18n->_("Pagina inicial")?></a>
-		<a class="border-button" href="mailto:info@nabc-championsleague.com"><?php echo $i18n->_("Hi ha un problema!")?></a>
+		<a class="border-button" href="/"><?php echo $i18n->_("Pagina inicial")?></a>
+		<a class="border-button" href="mailto:"><?php echo $i18n->_("Hi ha un problema!")?></a>
 	</div>
 </div>
 
