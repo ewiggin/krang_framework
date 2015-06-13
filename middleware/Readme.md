@@ -1,5 +1,5 @@
 # Middleware
-### No implementat en aquesta versió!!
+
 Aquesta carpeta ens serveix per tenir organitzats tots els arxius php que compleixen una funció de middleware, es a dir, programació que es entre el Request i la Resposta.
 Al fer una petició HTTP el sistema intenta esbrinar quin Controlador i acció ha de solicitar la resposta. Si volem que abans de produirse aquesta comunicació s'executin una serie 
 de processos o afegim informació a aquesta petició podem cridar el middleware. Si l'execució d'aquest retorna un array(next => true) la petició pot continuar cap al controlador, 
