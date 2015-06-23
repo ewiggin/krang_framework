@@ -783,9 +783,9 @@ class ActiveRecord extends DBA {
 		$keys = array_keys($this->attributes);
 		
 		while(!$trobat && !empty($keys)){
-		  $key = array_pop($keys);
-		  $trobat = (is_array($key) && $key['primary_key'] === true);
-		};
+		  $key = array_shift($keys); // $key is an string
+		  $trobat = (is_array($this->attributes[$key]) && $this->attributes[$key]['primary_key'] == true);
+		}
 
 		if($trobat) $primary_field = $key;
 
@@ -863,8 +863,10 @@ class ActiveRecord extends DBA {
 		$id = $objectArray[$pk_field];
 		$to_save = $this->to_SQLObject($objectArray);
 		
-		if(!$id) {
+		
 
+		if(empty($id) || $id == 0) {
+			// Insert, no te id es un registre nou
 			$this->db->insert($this->table, $to_save);
 			$new_id = $this->db->getInsertId();
 
@@ -873,8 +875,17 @@ class ActiveRecord extends DBA {
 			
 			return $object;
 		}
-		else return $this->db->update($this->table, $id, $to_save);
+		else {
+			return $this->db->update($this->table, $id, $to_save, $pk_field); // Update, te un ID.
+		}
+		
 	}
+
+
+
+
+
+
 	
 }
 

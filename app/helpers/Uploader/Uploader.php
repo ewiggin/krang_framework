@@ -29,7 +29,13 @@ class Uploader
 	var $files = array();
 	var $file = null;
 	var $conf = array();
-
+	var $mime_types_allowed = array(
+		"image/bmp", "text/plain", "text/css", "image/gif", "image/jpeg",
+		"video/mpeg", "audio/midi", "audio/x-mid", "video/quicktime", "audio/mpeg",
+		"application/pdf", "application/powerpoint", "application/mspowerpoint", "image/tiff",
+		"image/x-tiff", "audio/wav", "audio/x-wav", "application/msword", "application/excel",
+		"image/png"
+	);
 	/**
 	 * Constructor.
 	 * Detecta si es un sol arxiu o un array.
@@ -40,6 +46,40 @@ class Uploader
 	{
 		if(!empty($file[0])) $this->files = $file;
 		else if($file) $this->file = $file;
+	}
+
+	/**
+	 * Ens diu si aquest arxiu es permés per 
+	 * pujar al servidor segons el seu nom i extensió.
+	 * 
+	 * @param  String  	$fileName 		Nom de l'arxiu.
+	 * @return boolean       	
+	 */
+	private function is_allowed_mimetype($fileName){
+		$mime = $this->getMimeType($fileName);
+		return in_array($mime, $this->mime_types_allowed);
+	}
+
+	/**
+	 * Recupera el mimetype de l'arxiu segons 
+	 * els seu nom i extensió.
+	 * 
+	 * @param  String 	$file 		Nom de l'arxiu
+	 * @return String 	$mimetype 	MimeType d'aquest arxiu
+	 */
+	private function getMimeType($file){
+		$mimetype = false;
+	    if(function_exists('finfo_fopen')) {
+	        // open with FileInfo
+	    } elseif(function_exists('getimagesize')) {
+	        // open with GD
+	    } elseif(function_exists('exif_imagetype')) {
+	       // open with EXIF
+	    } elseif(function_exists('mime_content_type')) {
+	       $mimetype = mime_content_type($filename);
+	    }
+	    $mimetype = mime_content_type($filename);
+	    return $mimetype;
 	}
 
 	/**
@@ -137,9 +177,15 @@ class Uploader
 	 * @param $file 	$_FILE
 	 */
 	private function canUpload($file){
+		$allowed = true;
+		// Nosaltres diem quin mymetipe utilitzarem
+		if(!empty($this->conf['accepted_types'])) $allowed = in_array($file['type'], $this->conf['accepted_types']);
+		else {
+			// Agafem els per defecte
+			$allowed = in_array($file['type'], $this->mime_types_allowed);
+		}
 
-		if(!empty($this->conf['accepted_types'])) return in_array($file['type'], $this->conf['accepted_types']);
-		else return true;
+		return $allowed;
 	}
 
 	/**
@@ -184,7 +230,10 @@ class Uploader
 */
 class UploadImages extends Uploader
 {
-	
+	var $mime_types_allowed = array(
+		"image/bmp", "image/gif", "image/jpeg", 
+		"image/tiff", "image/x-tiff", "image/png"
+	);
 	/**
 	 * Constructor
 	 * Crida al constructor del pare e inicialitza el path per 

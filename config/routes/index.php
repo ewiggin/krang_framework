@@ -7,13 +7,7 @@
  *
  * Si la secció te una acció associada, la definim en aquest multiarray.
  *
- *
  */
 
-$Router->get('/', 'HomeController::hello', 'isAuth');
-
-// Login and Logout
-$Router->all('/login', 'LoginController::login')
-	   ->get('/logout', 'LoginController::logout');
-
+$Router->get('/', 'HomeController::hello');
 ?>

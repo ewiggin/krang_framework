@@ -22,17 +22,13 @@ class Router
 
     /**
      * Defineix la ruta
+     * TODO: INCOMPLETE
+     * 
      * @param [type] $url [description]
      */
     public function setUrl($url) {
         $url = (string) $url;
-
-        // make sure that the URL is suffixed with a forward slash
-        /*if (substr($url, -1) !== '/') {
-            $url .= '/';
-        }*/
         if($url == "") $url = "/";
-
         $this->url = $url;
     }
 
@@ -136,6 +132,14 @@ class Router
         return "([\w-%]+)";
     }
 
+    /**
+     * Executa la funció del controlador corresponent a la ruta.
+     * 
+     * @param  String $url       HTTP URL que fa la petició
+     * @param  Object $request  Request Object
+     * @param  Object $response Response Object
+     * @return void
+     */
 	public function dispatch($url, &$request, &$response){
 
 		$next = true;
@@ -143,8 +147,6 @@ class Router
 		$route = $this->url_patterns[$request->method][$this->url];
 
 		if(!empty($route)) {
-
-
 
 			if(!empty($route['middle'])) $next = call_user_func_array($route['middle'], array(&$request, &$response));
 

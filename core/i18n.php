@@ -5,7 +5,7 @@
  * de forma mes entenedora totes les traduccions 
  * de la pagina.
  *
- * @author Mario Martínez <gameofender@gmail.com>
+ * @author Mario Martínez <mario@javajan.com>
  */
 
 class i18n
@@ -128,7 +128,7 @@ class i18n
 				fwrite($fp, "<?php \n");
 				fwrite($fp, "/**");
 				fwrite($fp, "\n* Modifica només la segona linia de cada string. \n* Recorda que el generador de traduccions sobrescriu cada vegada aquest fitxer, quan la web sigui acabada s'ha de desactivar! \n*\n*\n* Per desactivar modifica la variable define(i18n_translate, true); de /config/i18n.php ");
-				fwrite($fp, "\n* @author Mario Martinez <gameofender@gmail.com> \n");
+				fwrite($fp, "\n* @author Mario Martinez <mario@javajan.com> \n");
 				fwrite($fp, "*/ \n\n ");
 				fwrite($fp, "\$strings = array(\n");
 

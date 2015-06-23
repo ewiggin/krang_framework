@@ -1,5 +1,4 @@
-# Krang Framework
-My Personal and Evil framework
+## Javajan Payments (TPV SOAP)
+Sistema centralitzat per controlar els teus pagaments.
 
-
-> Falta documentació...
+> Utilització a TincTicket (test)

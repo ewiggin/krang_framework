@@ -49,7 +49,7 @@ set_error_handler("error_handler", E_ERROR); // Només amb errors fatals
  * Els arxius de traduccions de forma predeterminada seran a locale/{code_lang} ex. es_ES
  */
 include 'config/i18n.php';
-include 'lib/i18n.php';
+include 'core/i18n.php';
 
 $lang = $_SESSION['lang'];
 if(empty($lang) && !isset($_GET['lang'])) $lang = default_lang;
@@ -73,7 +73,7 @@ $i18n->setOriginalLang(original_lang);
  * Per defecte, el charset serà de UTF8
  */
 require 'config/database.php';
-require 'lib/DBA.php';
+require 'core/DBA.php';
 $db = new DBA(_DB_HOST, _DB_DATABASE, _DB_USER, _DB_PASS);
 
 
@@ -81,9 +81,7 @@ $db = new DBA(_DB_HOST, _DB_DATABASE, _DB_USER, _DB_PASS);
 /**
  * ActiveRecord an ORM
  */
-require 'lib/ActiveRecord.php';
-
-
+require 'core/ActiveRecord.php';
 
 /**
  * Request handler Security
@@ -92,11 +90,24 @@ require 'lib/ActiveRecord.php';
  * Seguidament les empaquetem en una variable anomenada $req que 
  * podrem fer servir als nostres controladors.
  */
-require 'lib/Request.php';
-require 'lib/Response.php';
+require 'core/Request.php';
+require 'core/Response.php';
 
 $request = new Request();
 $response = new Response();
+
+
+/**
+ * Helpers
+ */
+/*$helpers_files = $request->session('helpers_files');
+if(empty($helpers_files) || ENV_VAR == "dev") {
+	$helpers_files = scandir(HELPERS_PATH);
+	$request->session('helpers_files', $helpers_files);
+}
+foreach ($helpers_files as $file) {
+	if($file != '.' && $file != '..' && strpos($file, '.php')) include HELPERS_PATH . $file;
+}*/
 
 
 /**
@@ -104,9 +115,27 @@ $response = new Response();
  * Incloem tots els controladors
  * que tenim definits a la carpeta controllers
  */
-$model_files = scandir(MODELS_PATH);
+$model_files = $request->session('model_files');
+if(empty($model_files)) {
+	$model_files = scandir(MODELS_PATH);
+	$request->session('model_files', $model_files);
+}
 foreach ($model_files as $file) {
 	if($file != '.' && $file != '..' && strpos($file, '.php')) include MODELS_PATH . $file;
+}
+
+
+
+/**
+ * Business 
+ */
+$business_files = $request->session('business_files');
+if(empty($business_files) || ENV_VAR == "dev") {
+	$business_files = scandir(BUSINESS_PATH);
+	$request->session('business_files', $business_files);
+}
+foreach ($business_files as $file) {
+	if($file != '.' && $file != '..' && strpos($file, '.php')) include BUSINESS_PATH . $file;
 }
 
 
@@ -116,10 +145,24 @@ foreach ($model_files as $file) {
  * Incloem tots els controladors
  * que tenim definits a la carpeta controllers
  */
-$controllers_files = scandir(CONTROLLERS_PATH);
+$controllers_files = $request->session('controllers_files');
+if(empty($controllers_files) || ENV_VAR == "dev") {
+	$controllers_files = scandir(CONTROLLERS_PATH);
+	$request->session('controllers_files', $controllers_files);
+}
 foreach ($controllers_files as $file) {
 	if($file != '.' && $file != '..' && strpos($file, '.php')) include CONTROLLERS_PATH . $file;
 }
+
+
+
+/**
+ * Logger 
+ * Llibreria que ens permet utilitzar un logger
+ * i enregistrar totes els peticions http.
+ */
+include 'core/Logger.php';
+
 
 /**
  * Middleware 
@@ -131,13 +174,16 @@ foreach ($controllers_files as $file) {
  * filtre anomenat `isAuthorized()` que ens filtri la peticíó HTTP i esbrinar si el que fa la petició
  * te sesió d'usuari.
  */
-include 'middleware/index.php';
+include 'app/middleware/index.php';
+
+
+
 
 /**
  * Routes
  * Arxiu on tenim totes les rutes
  */
-require 'lib/RouterProxy.php';
+require 'core/RouterProxy.php';
 $Router = new Router();
 // Add user routes
 require 'config/routes/index.php';
@@ -156,6 +202,8 @@ else {
 	$flash_type = 'info';
 	$flash_message = $flash;
 }
+
+
 
 
 /**
@@ -185,11 +233,12 @@ else if($res->status == 200){
 } 
 
 
+
 /**
  * Aquest petit troç de codi genera les traduccions en temps real
  * en els idiomes introduits al arxiu de configuració d'idiomes.
  */
 if(i18n_translate) {
-	$i18n->generate('locale/');
+	$i18n->generate(i18n_path);
 }
 ?>

@@ -7,7 +7,7 @@
  *
  * Tot el que vulguis que s'executi durant la petició HTTP s'ha d'incloure a l'arxiu Bella.php
  * 
- * @author Marion Martínez <gameofender@gmail.com>
+ * @author Marion Martínez <mario@javajan.com>
  */
 
 
@@ -19,14 +19,28 @@
  * @param  array  &$res 	response object
  * @return boolean       
  */
-function isAuth(&$req, &$res){
+function isAuth($req, $res){
 
 	$auth = false;
-	$currentUser = $req->session('currentUser');
-	if(!empty($currentUser)) $auth = true;
-
-	if(!$auth) $res->redirect('/login');
-	else return $auth;
+	if(!empty($req->session['user'])) $auth = true;
+	
+	return $auth;
 }
 
+
+/**
+ * Comproba si el usuari que fa la petició te 
+ * rol `admin`
+ * 
+ * @param  obj  $req 
+ * @param  obj  $res 
+ * @return boolean 
+ */
+function isAdmin($req, $res){
+
+	$next = false;
+
+	if(isAuth() && $req->session['user']['role'] === "admin") $next = true;
+	return $next;
+}
 ?>

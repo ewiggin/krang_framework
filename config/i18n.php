@@ -5,7 +5,7 @@
  */
 
 // Path on es troben les traduccions
-define(i18n_path, 'locale/');
+define(i18n_path, 'resources/locales/');
 
 // Generate translations
 // Genera fitxers de traduccions a cada refresc de pagina
@@ -13,29 +13,31 @@ define(i18n_path, 'locale/');
 // 
 // NOTA: Recomanem posar a flase en Producció.
 // 
-define(i18n_translate, false); 
+define(i18n_translate, true); 
 
 
 // 
 // Llista d'idiomes permesos
 // 
 $locales = array(
-	es => 'es_ES', 
+	ca => 'ca_CA', 
+	es => 'es_ES'
 );
 // Per utilitzar a la plantilla
 $languages = array(
-	'es' => 'Español',
+	'ca' => 'Català',
+	'es' => 'Español'
 );
 
 /**
  * Default 
  * Defineix quin es el llenguatge per defecte
  */
-define(default_lang, 'es');
+define(default_lang, 'ca');
 /**
  * Original Lang
  * Defineix quin es el llenguatge que utilitzem al programar.
  */
-define(original_lang, 'es');
+define(original_lang, 'ca');
 
 ?>

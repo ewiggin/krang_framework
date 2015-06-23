@@ -310,7 +310,7 @@ class DBA {
 	 * 
 	 * @return query_instance
 	 */
-	public function update($table, $id, $array){
+	public function update($table, $id, $array, $primary_key = "id"){
 
 		$id = $this->db->escape_string($id);
 		$table = $this->db->escape_string($table);
@@ -322,7 +322,7 @@ class DBA {
 
 		$update = rtrim($update, ",");
 
-		$strSQL = 'UPDATE '.$table.' SET '.$update.' WHERE id = '.$id;
+		$strSQL = 'UPDATE '.$table.' SET '.$update.' WHERE '.$primary_key.' = '.$id;
 		return $this->query($strSQL);
 	}
 

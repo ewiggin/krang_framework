@@ -12,6 +12,24 @@
 define(base_url, '/');
 
 /**
+ * Enviroment Var
+ * 'dev' => development 
+ * 'pro' => production
+ *
+ * Afecta a:
+ * =========
+ * CONTROLADORS I MODELS
+ * Si aquesta variable te valor 'dev', cada petició HTTP comproba
+ * els arxius que hi ha a les carpetes controladors i models, i els 
+ * inclou un a un. En cas contrari, si tenim la variable amb valor 'pro' aquests
+ * directoris es miren un sol cop i la resta de peticions HTTP es guarden a 
+ * sessió. 
+ *
+ * TODO: La performance estaria molt millor si fem un arxiu amb un array de tots els controladors i models que farem servir.
+ */
+define(ENV_VAR, 'pro');
+
+/**
  * Home view
  * 
  * Definim quina es la pagina principal per carregar-la quan no hi ha 
@@ -42,7 +60,7 @@ define(display_errors, E_ALL);
  * 
  * Localització de la plantilla
  */
-define(default_layout, 'views/layout/layout.php');
+define(default_layout, 'resources/views/layout/layout.php');
 
 /**
  * PATHS
@@ -51,7 +69,7 @@ define(default_layout, 'views/layout/layout.php');
  * Defineix on son les vistes
  * per poder fer els includes
  */
-define(VIEWS_PATH, 'views/');
+define(VIEWS_PATH, 'resources/views/');
 
 /**
  * Error 404 path
@@ -59,7 +77,7 @@ define(VIEWS_PATH, 'views/');
  * Definexi on son el directori
  * on son els arxius d'error 404 i 500
  */
-define(VIEWS_ERROR_PATH, 'views/error/');
+define(VIEWS_ERROR_PATH, 'resources/views/error/');
 
 /**
  * Upload Path
@@ -69,7 +87,7 @@ define(VIEWS_ERROR_PATH, 'views/error/');
  *
  * Imatges, Audios, PDF, etc.
  */
-define(UPLOAD_PATH, 'gestion/uploads/');
+define(UPLOAD_PATH, 'uploads/');
 
 /**
  * Controllers
@@ -87,6 +105,22 @@ define(CONTROLLERS_PATH, 'app/controllers/');
  * models
  */
 define(MODELS_PATH, 'app/models/');
+
+/**
+ * Middleware
+ * Definim el path on sera el middleware
+ */
+define(MIDDLEWARE_PATH, 'app/middleware/');
+
+/**
+ * Business Path
+ */
+define(BUSINESS_PATH, 'app/business/');
+
+/**
+ * Helpers
+ */
+define(HELPERS_PATH, 'app/helpers/');
 
 
 /**

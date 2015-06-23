@@ -3,7 +3,7 @@
  * Bella 
  * a newest CMS system for simple and beautiful sites.
  *
- * @author Mario Martínez <gameofender@gmail.com>
+ * @author Mario Martínez <mario@javajan.com>
  */
 
 class KrangCMS

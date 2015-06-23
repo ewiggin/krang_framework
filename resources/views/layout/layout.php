@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?=lang?>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,13 +11,14 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Krang Framework</title>
+     <title>Krang Framework :: Home</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Raleway:500,800' rel='stylesheet' type='text/css'>
-    <link href="assets/css/app.css" rel="stylesheet">
-   
+    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/assets/components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet" />
+    <link href="public/assets/components/bootstrap-material-design/dist/css/roboto.min.css" rel="stylesheet" />
+    <link href="public/assets/components/bootstrap-material-design/dist/css/material-fullpalette.min.css" rel="stylesheet" />
+    <link href="public/assets/css/app.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -25,7 +26,7 @@
     <![endif]-->
 </head>
 
-<body class="<?=$body_class?>">
+<body>
 
     <!-- flash messages -->
     <?php if(!empty($flash_message)) : ?>
@@ -37,22 +38,27 @@
         </div>
     <?php endif; ?>
 
-
     <!-- header code -->
-    <!-- /header -->
-
-    <!-- content -->
-    <div class="container">
+    <div class="container-fluid main">
         <?php
         // include del fitxer on hi ha el contingut
         include $view_file;
         ?>
     </div>
-    <!-- /content -->
     <!-- Footer -->
-    <script src="assets/js/jquery.1.11.2.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- /footer -->        
+    <!-- End footer -->        
     
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="public/assets/components/jquery/dist/jquery.min.js"></script>
+    <script src="public/assets/js/bootstrap.min.js"></script>
+    <script src="public/assets/components/bootstrap-material-design/dist/js/material.min.js"></script>
+    <script src="public/assets/components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script type="text/javascript">
+        $.material.init();
+    </script>
 </body>
 </html>
