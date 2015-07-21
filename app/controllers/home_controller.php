@@ -14,13 +14,13 @@ class HomeController {
 	 * @return mixed
 	 */
 	public function hello($req, $res) {
+		
 		// traduccions
 		global $i18n;
-		// dades de pagament que ens arriben per POST
-		
+		$name = $req->params['GET']['name'];
 
 		$res->render('home.php', array(
-			message => $i18n->_("Welcome!")
+			message => $name." ".$i18n->_("you can dominate the Internet!")
 		));
 
 	}

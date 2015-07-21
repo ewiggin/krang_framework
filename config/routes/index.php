@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes
  * Definim les rutes de l'aplicació.
@@ -8,6 +9,6 @@
  * Si la secció te una acció associada, la definim en aquest multiarray.
  *
  */
-
-$Router->get('/', 'HomeController::hello');
+$Router->get('/', 'HomeController::hello')
+        ->get('/hello/:name', 'HomeController::hello');
 ?>

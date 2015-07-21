@@ -331,19 +331,24 @@ class ActiveRecord extends DBA {
 	 * @param  string $value Valor del camp
 	 * @return Object this
 	 */
-	public function where($key, $value = '') {
-
+	public function where($key, $value = "") {
+		
 		if(is_array($key)) {
 			foreach ($key as $column => $value) {
 				$comparate_with = $this->getComparateFieldValue($key);
 				$this->Query['where'][] = $column.' '.$comparate_with."\"".$value."\"";
 			}
 		}
-		else if(!empty($value)) {
+		else  {
 			$comparate_with = $this->getComparateFieldValue($key);
 			$this->Query['where'][] = $key.$comparate_with."\"".$value."\"";
 		}
-		else $this->Query['where'][] = $key;
+		/*else if($value != 0) {
+			$comparate_with = $this->getComparateFieldValue($key);
+			$this->Query['where'][] = $key.$comparate_with."\"".$value."\"";
+			echo 'where: '.$key.$comparate_with."\"".$value."\"";
+		}
+		else $this->Query['where'][] = $key;*/
 
 		return $this;
 	}
@@ -752,6 +757,24 @@ class ActiveRecord extends DBA {
 		return $delted;
 	}
 
+	/**
+	 * Elimina l'objecte de la base de dades, pel seu id.
+	 * @param  
+	 * @return [type]
+	 */
+	public function removeById($id) {
+		$deleted = false;
+
+		$id = intval($id);
+
+		if($id > 0) {
+			$result = $this->db->deleteOne($this->table, $id);
+			$deleted = ($result == 1);
+		}
+		
+		return $deleted;
+	}
+
 
 	/**
 	 * Elimina tots els objectes de l'array passat per parametre,
@@ -813,8 +836,8 @@ class ActiveRecord extends DBA {
 			$type 	= '';
 			$key 	= '';
 
-			if($props['ignore'] !== true){
-
+			if(empty($props['ignore']) || $props['ignore'] !== true){
+				
 				// Recuperem quin tipus de valor ha de ser.
 				// En cas de ser un array hem de mirar el field 'type'
 				// si no, es directament el valor que hi ha a $props
@@ -862,23 +885,23 @@ class ActiveRecord extends DBA {
 
 		$id = $objectArray[$pk_field];
 		$to_save = $this->to_SQLObject($objectArray);
-		
-		
 
-		if(empty($id) || $id == 0) {
-			// Insert, no te id es un registre nou
-			$this->db->insert($this->table, $to_save);
-			$new_id = $this->db->getInsertId();
+		if(!empty($to_save)){
+			if(empty($id) || $id == 0) {
+				// Insert, no te id es un registre nou
+				$this->db->insert($this->table, $to_save);
+				$new_id = $this->db->getInsertId();
 
-			if(is_object($object)) $object->$pk_field = $new_id;
-			else $object[$pk_field] = $new_id;
-			
-			return $object;
+				if(is_object($object)) $object->$pk_field = $new_id;
+				else $object[$pk_field] = $new_id;
+				
+				return $object;
+			}
+			else {
+				return $this->db->update($this->table, $id, $to_save, $pk_field); // Update, te un ID.
+			}
 		}
-		else {
-			return $this->db->update($this->table, $id, $to_save, $pk_field); // Update, te un ID.
-		}
-		
+		else return false;
 	}
 
 

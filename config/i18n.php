@@ -21,23 +21,25 @@ define(i18n_translate, true);
 // 
 $locales = array(
 	ca => 'ca_CA', 
-	es => 'es_ES'
+	es => 'es_ES',
+	en => 'en_EN'
 );
 // Per utilitzar a la plantilla
 $languages = array(
 	'ca' => 'Català',
-	'es' => 'Español'
+	'es' => 'Español',
+	'en' => 'English'
 );
 
 /**
  * Default 
  * Defineix quin es el llenguatge per defecte
  */
-define(default_lang, 'ca');
+define(default_lang, 'en');
 /**
  * Original Lang
  * Defineix quin es el llenguatge que utilitzem al programar.
  */
-define(original_lang, 'ca');
+define(original_lang, 'en');
 
 ?>

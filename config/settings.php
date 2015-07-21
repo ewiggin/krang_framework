@@ -27,25 +27,9 @@ define(base_url, '/');
  *
  * TODO: La performance estaria molt millor si fem un arxiu amb un array de tots els controladors i models que farem servir.
  */
-define(ENV_VAR, 'pro');
-
-/**
- * Home view
- * 
- * Definim quina es la pagina principal per carregar-la quan no hi ha 
- * cap URL ni cap controlador.
- */
-define(default_view, 'home');
+define(ENV_VAR, 'dev');
 
 
-/**
- * Generate Page information
- * 
- * Si tenim definides informació bàsica de les pagines a la base de dades la podem cridar quan vulguem.
- * Aquesta opció només serveix si segueixes un patró a la base de dades que funcioni amb aquesta funcionalitat.
- * La informació es desarà dins de la variable $page
- */
-define(page_var, false);
 
 /**
  * Error level
@@ -53,14 +37,15 @@ define(page_var, false);
  * Defineix el nivell d'error que vols que apareixi per pantalla, pot no funcionar ja que a vegades
  * aquesta variable ve del php.ini i en la majoria de hostings es protegida.
  */
-define(display_errors, E_ALL);
+define(display_errors, 0);
 
 /**
  * Layout
  * 
  * Localització de la plantilla
  */
-define(default_layout, 'resources/views/layout/layout.php');
+define(layaut_path, 'resources/views/layout/');
+define(default_layout, layaut_path.'default.php');
 
 /**
  * PATHS
@@ -135,7 +120,7 @@ define(HELPERS_PATH, 'app/helpers/');
  * ROUTES_FILE => Funciona si la opció anterior es = False i defineix on son les rutes.
  */
 define(ROUTES_DB, false);
-define(ROUTES_FILE, 'config/routes.php');
+define(ROUTES_PATH, 'config/routes/index.php');
 
 
 ?>

@@ -9,16 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
      <title>Krang Framework :: Home</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="public/assets/components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet" />
-    <link href="public/assets/components/bootstrap-material-design/dist/css/roboto.min.css" rel="stylesheet" />
-    <link href="public/assets/components/bootstrap-material-design/dist/css/material-fullpalette.min.css" rel="stylesheet" />
-    <link href="public/assets/css/app.css" rel="stylesheet">
+    <link href="/public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/assets/components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet" />
+    <link href="/public/assets/components/bootstrap-material-design/dist/css/roboto.min.css" rel="stylesheet" />
+    <link href="/public/assets/components/bootstrap-material-design/dist/css/material-fullpalette.min.css" rel="stylesheet" />
+    <link href="/public/assets/css/app.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -37,9 +37,13 @@
             </div>
         </div>
     <?php endif; ?>
-
+    
     <!-- header code -->
-    <div class="container-fluid main">
+    <div class="container">
+        <header>
+            <h2>Krang Framework</h2>
+            <hr />
+        </header>
         <?php
         // include del fitxer on hi ha el contingut
         include $view_file;
@@ -53,10 +57,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="public/assets/components/jquery/dist/jquery.min.js"></script>
-    <script src="public/assets/js/bootstrap.min.js"></script>
-    <script src="public/assets/components/bootstrap-material-design/dist/js/material.min.js"></script>
-    <script src="public/assets/components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script src="/public/assets/components/jquery/dist/jquery.min.js"></script>
+    <script src="/public/assets/js/bootstrap.min.js"></script>
+    <script src="/public/assets/components/bootstrap-material-design/dist/js/material.min.js"></script>
+    <script src="/public/assets/components/bootstrap-material-design/dist/js/ripples.min.js"></script>
     <script type="text/javascript">
         $.material.init();
     </script>

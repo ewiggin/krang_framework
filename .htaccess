@@ -1,20 +1,3 @@
-<mod_gzip.c>
-   Yes
-   Yes
-   file .(html?|txt|css|js|php|pl)$
-   handler ^cgi-script$
-   mime ^text/.*
-   mime ^application/x-javascript.*
-   mime ^image/.*
-   rspheader ^Content-Encoding:.*gzip.*
-</>
-
-<IfModule mod_deflate.c>
-    < "\.(js|css|html|php)$">
-        SetOutputFilter DEFLATE
-    </>
-</IfModule>
-
 Options -Indexes
 
 RewriteEngine On

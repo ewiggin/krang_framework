@@ -8,7 +8,7 @@
 class Logger {
 	
 	var $levels 	= array('i' => 'Info', 'w' => 'Warning', 'e' => 'Error');
-	var $path 		= './logs/';
+	var $path 		= 'resources/logs/';
 	var $file 		= '';
 	var $enabled 	= false;
 	var $ignore 	= array();

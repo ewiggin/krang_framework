@@ -116,7 +116,7 @@ foreach ($helpers_files as $file) {
  * que tenim definits a la carpeta controllers
  */
 $model_files = $request->session('model_files');
-if(empty($model_files)) {
+if(empty($model_files) || ENV_VAR == "dev") {
 	$model_files = scandir(MODELS_PATH);
 	$request->session('model_files', $model_files);
 }
@@ -183,10 +183,10 @@ include 'app/middleware/index.php';
  * Routes
  * Arxiu on tenim totes les rutes
  */
-require 'core/RouterProxy.php';
+require 'core/Router.php';
 $Router = new Router();
 // Add user routes
-require 'config/routes/index.php';
+require ROUTES_PATH;
 // dispatch HTTP petition
 $Router->dispatch($request->params['GET']['u'], $request, $response);
 $res = $response;
@@ -227,7 +227,7 @@ else if($res->status == 200){
 		else $view_file = VIEWS_PATH.$view_file;
 
 		// add a layout
-		if(!empty($res->locals['layout'])) include $res->locals['layout'];
+		if(!empty($res->locals['layout'])) include layaut_path.$res->locals['layout'];
 		else include default_layout;
 	}
 } 

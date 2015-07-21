@@ -269,7 +269,8 @@ class DBA {
 		$table = $this->db->escape_string($table);
 		$strSQL = 'DELETE FROM '.$table.' '.$where;
 		//
-		return $this->query($strSQL);
+		$this->query($strSQL);
+		return $this->db->affected_rows;
 	}
 
 	/**
@@ -287,7 +288,9 @@ class DBA {
 
 		$strSQL = 'DELETE FROM '.$table.' WHERE id = '.$id;
 		//
-		return $this->query($strSQL);
+		$this->query($strSQL);
+
+		return $this->db->affected_rows;
 	}
 
 	/**
