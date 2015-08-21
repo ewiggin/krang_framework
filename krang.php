@@ -1,17 +1,15 @@
 <?php
 /**
  * Krang FRAMEWORK
- * "Coding evil apps in a easy way"
+ * ==================================
+ * "The evil way to conquer Internet"
  * 
- * * * * * * * * * * * * * * * * * *
- * 
- * Aquest framework s'ha creat per motiu d'agilitzar de forma ordenada i senzilla la programació de llocs web
- * amb poces necessitats tecniques. No trobaràs grans classes, funcions d'eficiencia renderitzant subrutines amb C. 
- * Aquest es un framework per programadors novells i amb ganes d'apendre i desenvolupar amb la metodología (M)VC, pots 
- * modificar tot el que vulguis per aquest projecte, fins i tot comercialitzar aquest utilitzant aquest framework.
- *
- * En aquest arxiu pots veure com es posa en marxa aquesta aplicació i com va alimentantse de tots els arxius de configuració,
- * rutes i altres components. No hi ha més.
+ * This framework has been created for the occasion to expedite an orderly and simple programming websites 
+ * thumb with technical requirements. You will not find large classes, functions with efficiency rendering subroutines C. 
+ * This is a framework for novice programmers and eager to learn and develop the methodology (M) VC 
+ * can change anything you want for this project, including even this market using this framework. 
+ * In this file you can see how this application is launched and how alimentantse all configuration files, 
+ * routes and other components. No more.
  * 
  * v.0.1
  * MIT License
@@ -22,7 +20,7 @@ session_start();
 
 
 /**
- * Configuracions varies
+ * Settings
  */
 require 'config/settings.php';
 
@@ -38,15 +36,7 @@ set_error_handler("error_handler", E_ERROR); // Només amb errors fatals
 
 
 /**
- * Configuració del idioma
- * Aquest bloc de codi serveix per definir i 
- * instanciar l'objecte encarregat d'administrar i mostrar
- * totes les traduccions de la pagina web d'una forma entenedora.
- *
- * Es fa servir la clase i18n i es requreix del arxiu de configuració 
- * config/i18n.php
- *
- * Els arxius de traduccions de forma predeterminada seran a locale/{code_lang} ex. es_ES
+ * i18n - Translates and locales
  */
 include 'config/i18n.php';
 include 'core/i18n.php';
@@ -55,22 +45,18 @@ $lang = $_SESSION['lang'];
 if(empty($lang) && !isset($_GET['lang'])) $lang = default_lang;
 else if(!empty($_GET['lang'])) $lang = $_GET['lang'];
 
-// Desem les variables com a globals i de sessió
+// Save the language on session
 define(lang, $lang);
 $_SESSION['lang'] = lang;
 
-// Inicialitzem l'objecte de traduccions
+// Init a i18n class to translate project's strings.
 $i18n = new i18n(lang, $locales);
-// Li diem quin es l'idioma original
+// What is original language?
 $i18n->setOriginalLang(original_lang); 
 
 /**
- * Configuració de la base de dades
- * Iniciem el objecte de la base de dades que utilitzarem
- * per tota la programació dels controladors.
- *
- * Molt important que les dades de connexió siguin correctes.
- * Per defecte, el charset serà de UTF8
+ * Database configuration
+ * Require Class DBA and Configuration to create a connection instance and use form ActiveRecord
  */
 require 'config/database.php';
 require 'core/DBA.php';
@@ -85,10 +71,6 @@ require 'core/ActiveRecord.php';
 
 /**
  * Request handler Security
- * Agafem totes les variables que ens arriben de l'exterior
- * i els hi passem un filtre de seguretat.
- * Seguidament les empaquetem en una variable anomenada $req que 
- * podrem fer servir als nostres controladors.
  */
 require 'core/Request.php';
 require 'core/Response.php';
@@ -99,21 +81,14 @@ $response = new Response();
 
 /**
  * Helpers
+ * Add your helpers here
  */
-/*$helpers_files = $request->session('helpers_files');
-if(empty($helpers_files) || ENV_VAR == "dev") {
-	$helpers_files = scandir(HELPERS_PATH);
-	$request->session('helpers_files', $helpers_files);
-}
-foreach ($helpers_files as $file) {
-	if($file != '.' && $file != '..' && strpos($file, '.php')) include HELPERS_PATH . $file;
-}*/
+//ex. include 'app/helpers/helpme.php;'
 
 
 /**
  * Models
- * Incloem tots els controladors
- * que tenim definits a la carpeta controllers
+ * Add all models class to project.
  */
 $model_files = $request->session('model_files');
 if(empty($model_files) || ENV_VAR == "dev") {
@@ -128,6 +103,7 @@ foreach ($model_files as $file) {
 
 /**
  * Business 
+ * (optional)
  */
 $business_files = $request->session('business_files');
 if(empty($business_files) || ENV_VAR == "dev") {
@@ -142,8 +118,7 @@ foreach ($business_files as $file) {
 
 /**
  * Controllers
- * Incloem tots els controladors
- * que tenim definits a la carpeta controllers
+ * Include all controllers class.
  */
 $controllers_files = $request->session('controllers_files');
 if(empty($controllers_files) || ENV_VAR == "dev") {
@@ -158,8 +133,7 @@ foreach ($controllers_files as $file) {
 
 /**
  * Logger 
- * Llibreria que ens permet utilitzar un logger
- * i enregistrar totes els peticions http.
+ * Help a project use a Log service
  */
 include 'core/Logger.php';
 
@@ -167,12 +141,7 @@ include 'core/Logger.php';
 /**
  * Middleware 
  * /middleware/index.php
- * 
- * Incloem arxiu de funcions que ens faran de filtre.
- * Aquestes funcions es declaren a l'arxiu rutes i s'executaràn abans d'arribar al controlador.
- * Per exemple, si una funció concreta només la poden utilitzar usuaris autentificats, podem crear un 
- * filtre anomenat `isAuthorized()` que ens filtri la peticíó HTTP i esbrinar si el que fa la petició
- * te sesió d'usuari.
+ * We can use middleware to define route policy
  */
 include 'app/middleware/index.php';
 
@@ -181,7 +150,8 @@ include 'app/middleware/index.php';
 
 /**
  * Routes
- * Arxiu on tenim totes les rutes
+ * Interprete all routes and execute actions.
+ * Retrieve all params to use in views.
  */
 require 'core/Router.php';
 $Router = new Router();
@@ -207,12 +177,10 @@ else {
 
 
 /**
- * Vistes i Plantilla
- * Segons el response status carreguem una vista o un arxiu d'error.
- * Si l'arxiu de vista no existeix en aquest moment, s'inclou la vista del 404.
+ * Views and Layouts
+ * If the view and layout exists and status code is 200 render a view else render 404 or status code error page.
  */
-if($res->status != 200) include VIEWS_ERROR_PATH.$res->status.'.php';
-else if($res->status == 200){
+if($res->status == 200){
 	if($res->xhr && $res->view != '') include VIEWS_PATH.$res->view; //without template
 	else if(!$res->xhr  && $res->contentType == "text/html") {
 
@@ -230,13 +198,13 @@ else if($res->status == 200){
 		if(!empty($res->locals['layout'])) include layaut_path.$res->locals['layout'];
 		else include default_layout;
 	}
-} 
+}
+else include VIEWS_ERROR_PATH.$res->status.'.php';
 
 
 
 /**
- * Aquest petit troç de codi genera les traduccions en temps real
- * en els idiomes introduits al arxiu de configuració d'idiomes.
+ * This section generate i18n strings if the i18n_translate var is defined TRUE.
  */
 if(i18n_translate) {
 	$i18n->generate(i18n_path);
