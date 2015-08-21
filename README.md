@@ -8,10 +8,10 @@ Para empezar solamente necesitas saber dónde estan las configuraciones del proy
 Fácil, estan en el directorio `/config/`.
 
 Desde este directorio accedemos a los archivos de configuración del sitio:
-  - `database.php` > Configuración de la conexión a la base de datos.
-  - `i18n.php` > Configuración de los idiomas y traducciones.
-  - `settings.php` > Configuración general de todo el proyecto.
-  - `/routes/` > Directorio de rutas.
+  - `database.php`  Configuración de la conexión a la base de datos.
+  - `i18n.php`  Configuración de los idiomas y traducciones.
+  - `settings.php`  Configuración general de todo el proyecto.
+  - `/routes/`  Directorio de rutas.
 
 #### Rutas
 Krang funciona como cualquier otro framework, defines rutas que llaman a acciones de un controlador y este al final devuelve unos valores hacia las vistas.p
