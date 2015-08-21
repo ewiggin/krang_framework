@@ -1,7 +1,7 @@
 ## Krang Framework
 The evil way to conquer internet.
 
-This doc is **Spanish Documentation**, i need help to write in English...
+This doc is **Spanish Documentation**... sorry
 
 ### Empezando
 Para empezar solamente necesitas saber dónde estan las configuraciones del proyecto.
