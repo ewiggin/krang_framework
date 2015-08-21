@@ -107,9 +107,11 @@ class Users extends ActiveRecord {
 }
 
 ```
-**primary_key** Importante, definimos este campo como el primary key, con el que haremos referencia todas las operaciones hacia la base de datos. Debe ser el mismo primary key de la tabla en la base de datos.
+**primary_key** 
+Importante, definimos este campo como el primary key, con el que haremos referencia todas las operaciones hacia la base de datos. Debe ser el mismo primary key de la tabla en la base de datos.
 
-**type.** Define el tipo de campo de la base de datos. Soportados los siguientes:
+**type.** 
+Define el tipo de campo de la base de datos. Soportados los siguientes:
 
 - string
 - boolean
@@ -119,11 +121,14 @@ class Users extends ActiveRecord {
 - date. 
 - abstract. Este campo se define como abstracto ya que no existe propiamente en la tabla sino que es una operación que se define en el `column_name`.
 
-**column_name** Nos permite redefinir el nombre que usaremos en el objeto y que difiere al que hay en la base de datos.
+**column_name**
+Nos permite redefinir el nombre que usaremos en el objeto y que difiere al que hay en la base de datos.
 
-**ignore** Le decimos al ORM que ese campo lo puede ignorar al hacer las operaciones hacia la base de datos.
+**ignore** 
+Le decimos al ORM que ese campo lo puede ignorar al hacer las operaciones hacia la base de datos.
 
-**defaults_to** Permite definir un valor por defecto.
+**defaults_to** 
+Permite definir un valor por defecto.
 
 
 Una vez definido el modelo, podemos llamarlo en cualquier función o controlador usando el activerecord para recuperar el objeto de la base de datos:
@@ -325,30 +330,30 @@ Es el encargado de lidiar entre los modelos y las peticiones a la base de datos.
 Los siguientes metodos pueden usarse:
 
 Para recuperar registros
-- one($id) Recupera 1 registro con ese ID.
-- find($ids) Recupera registros segun los id, acepta array y integer.
-- findBy($key, $value) Recupera registro segun field > value `ej. ->findBy("nombre", "Mario")`
-- order($sql_string) Setea el orden de la consulta. `ej. ->order("nombre asc");`
-- random() Recupera 1 registro random
-- last($limit) Recuperamos el/los úiltimo/s registro/s de la base de datos, ordenado por id;
-- all() Recupera todos los registros
-- group($sql_string) Setea el groupby de la consulta.
-- between($first, $last) Recupera todos los registros entre 2 limites
-- join($sql_string) Añade LEFT JOIN para la consulta final
-- form($string) Añade tablas a la consulta
+- **one($id)** Recupera 1 registro con ese ID.
+- **find($ids)** Recupera registros segun los id, acepta array y integer.
+- **findBy($key, $value)** Recupera registro segun field > value `ej. ->findBy("nombre", "Mario")`
+- **order($sql_string)** Setea el orden de la consulta. `ej. ->order("nombre asc");`
+- **random()** Recupera 1 registro random
+- **last($limit)** Recuperamos el/los úiltimo/s registro/s de la base de datos, ordenado por id;
+- **all()** Recupera todos los registros
+- **group($sql_string)** Setea el groupby de la consulta.
+- **between($first, $last)** Recupera todos los registros entre 2 limites
+- **join($sql_string)** Añade LEFT JOIN para la consulta final
+- **form($string)** Añade tablas a la consulta
  
 Para ejecutar la consulta:
-- getObject() Recupera los datos como Objetos del Modelo especificado.
-- getArray() Recupera los datos como un array asociativo.
+- **getObject()** Recupera los datos como Objetos del Modelo especificado.
+- **getArray()** Recupera los datos como un array asociativo.
 
 Nuevos registros i modificaciones de objetos:
-- create($array) Crea una instancia del modelo según el array asociativo que le pasamos por parametro.
-- remove($object_model) Elimina el objeto que pasamos por referencia.
-- save($object_model) Guarda el objeto en la base de datos. Inserta o Actualiza los datos.
-- removeAll($objects_array) Elimina todos los objetos instanciados de la base de datos.
+- **create($array)** Crea una instancia del modelo según el array asociativo que le pasamos por parametro.
+- **remove($object_model)** Elimina el objeto que pasamos por referencia.
+- **save($object_model)** Guarda el objeto en la base de datos. Inserta o Actualiza los datos.
+- **removeAll($objects_array)** Elimina todos los objetos instanciados de la base de datos.
 
 SQL Nativa
-- raw_query($strSQL) Ejecuta una Query SQL nativa y devuelve los resultados como un Array asociativo
+- **raw_query($strSQL)** Ejecuta una Query SQL nativa y devuelve los resultados como un Array asociativo
 
 
 ### i18n y traducciones
