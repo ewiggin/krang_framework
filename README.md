@@ -14,7 +14,7 @@ Desde este directorio accedemos a los archivos de configuración del sitio:
   - `/routes/` > Directorio de rutas.
 
 #### Rutas
-Krang funciona como cualquier otro framework, defines rutas que llaman a acciones de un controlador y este al final devuelve unos valores hacia las vistas.
+Krang funciona como cualquier otro framework, defines rutas que llaman a acciones de un controlador y este al final devuelve unos valores hacia las vistas.p
 
 Las rutas se encuentran en `/routes/` y lo puedes dividir en diferentes archivos o usar el `index.php`.
 
@@ -207,7 +207,12 @@ class HomeController {
 #### Vistas
 Las vistas estan separadas por archivos y son dependientes de una plantilla central. Si desde el controlador no se especifica otra plantilla se usará la que hay definida en la configuración por defecto. Las plantillas pueden utilizar las variables que se adjuntan al render de cada acción, separando de forma efectiva logica de negocio con presentación.
 
-##### Plantillas
+Todas las variables que adjuntamos a la función render() del controlador están disponibles para la vista que se ha pasado por parametro. Sola mente debemos usarlas como lo hariamos en php sin separar el codigo.
+```
+<p>Hello <?php echo $msg?>, you are welcome!</p>
+```
+
+#### Plantillas
 Por defecto la plantilla que se especifica en la configuración de `settings.php` es la que se usara para renderizar las vistas, pero esta puede cambiarse solamente pasando como parametro la variable **layout** 
 
 ```
