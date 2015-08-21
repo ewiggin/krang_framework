@@ -226,28 +226,53 @@ Funciones que puedes utilizar:
 
 **Paremtros de entrada**
 ```
-->params['GET']['nombre_param'];//Recupera el parametro GET
-->params['GET']; 		//Recupera todos los parametros GET
-->params['POST']; 		//Recupera los parametros POST
+//Recupera el parametro GET
+->params['GET']['nombre_param'];
+
+//Recupera todos los parametros GET
+->params['GET']; 	
+
+//Recupera los parametros POST
+->params['POST']; 		
 ```
 
 **Sesiones**
 ```
-->session($id); 	//Recupera una sesión guardada.
-->session($id, $value); //Guardas un valor dentro de una sesión.
-->session_destroy($id); //Destruye la sesión que especificamos por parametro.
+//Recupera una sesión guardada.
+->session($id); 	
+
+//Guardas un valor dentro de una sesión.
+->session($id, $value); 
+
+//Destruye la sesión que especificamos por parametro.
+->session_destroy($id); 
 ```
 
-**HTTP REQUEST**
+**Headers http**
 ```
-->get($key); 		// Recupera cualquier parametro de las cabeceras HTTP.
-->getRequestMethod(); 	// Recupera el metodo HTTP (GET, POST, XHR, ETC.)
-->accepts($type); 	// Devuelve TRUE | FALSE si els servidor acepta o no el contenido.
-->ip; 			// Ip del cliente que hace la petición
-->path; 		// Devuelve el PATH_INFO
-->originalUrl; 		// Devuelve la URI que ha echo la petición.
-->hostname; 		// Nombre del host
-->cookies;		// Devuelve las cookies
+// Recupera cualquier parametro de las cabeceras HTTP.
+->get($key); 		
+
+// Recupera el metodo HTTP (GET, POST, XHR, ETC.)
+->getRequestMethod(); 	
+
+// Devuelve TRUE | FALSE si els servidor acepta o no el contenido.
+->accepts($type); 	
+
+// Ip del cliente que hace la petición
+->ip; 			
+
+// Devuelve el PATH_INFO
+->path; 		
+
+// Devuelve la URI que ha echo la petición.
+->originalUrl; 	
+
+// Nombre del host
+->hostname; 		
+
+// Array de cookies
+->cookies;		
 ```
 
 > Response
@@ -256,17 +281,41 @@ Funciones que puedes utilizar:
 
 Funciones:
 ```
-->cookie($name, $value, $options); // Crea i guarda una cookie
-->download($path, $file_name); 	// Modifica las cabeceras para que la respuesta sea un archivo descargable
-->json($value); // La respuesta no renderiza la vista, es un archivo JSON.
-->location($path); // Hace una redirección por cabecera "Location: $path";
-->redirect($path); // Alias de location()
-->render($view, $values); // Renderiza la vista y guarda los parametros para que puedan usar por esta.
-->flash($type, $value); // Genera un mensaje flash que se puede utilizar en la plantilla
-->status($code); // Identifica el HTTP STATUS de la respuesta
-->send($body); // Printa por pantalla, sin cargar ningúna plantilla, el valor pasado por parametro
-->set($field, $value); // Setea la cabecera con un header("$clave : $valor");
-->type($value); // Identifica el tipo de Content-Type de respuesta
+<?php
+// Crea i guarda una cookie
+->cookie($name, $value, $options); 
+
+// Modifica las cabeceras para que la respuesta sea un archivo descargable
+->download($path, $file_name); 	
+
+// La respuesta no renderiza la vista, es un archivo JSON.
+->json($value); 
+
+// Hace una redirección por cabecera "Location: $path";
+->location($path); 
+
+// Alias de location()
+->redirect($path); 
+
+// Renderiza la vista y guarda los parametros para que puedan usar por esta.
+->render($view, $values); 
+
+// Genera un mensaje flash que se puede utilizar en la plantilla
+->flash($type, $value); 
+
+// Identifica el HTTP STATUS de la respuesta
+->status($code); 
+
+// Printa por pantalla, sin cargar ningúna plantilla, el valor pasado por parametro
+->send($body); 
+
+// Setea la cabecera con un header("$clave : $valor");
+->set($field, $value); 
+
+// Identifica el tipo de Content-Type de respuesta
+->type($value); 
+
+?>
 ```
 
 
