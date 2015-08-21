@@ -214,8 +214,13 @@ $res->render("view.php", array(
 #### Request & Response
 Las variables que utilizamos en el middleware y en todos los controladores nos permiten tener el control de las cabeceras http y como devolvemos el resultado.
 
+`function action_name($req, $res){}`
+
 > Request
+>
 > Todo lo que tiene que ver con la petición HTTP.
+
+
 
 Funciones que puedes utilizar:
 
@@ -246,6 +251,7 @@ Funciones que puedes utilizar:
 ```
 
 > Response
+>
 > Variable para responder a la petición, es la que utilizamos cuando hemos acabado con la logica del controlador.
 
 Funciones:
