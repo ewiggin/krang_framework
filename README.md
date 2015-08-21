@@ -43,7 +43,7 @@ De forma opcional podemos añadir middleware para validar o modificar aspectos d
 
 #### Middleware
 Se encuentra en `app/middleware/index.php`.
-Este son funciones que reciben 2 parametros, $Request i $Response. Con estos se pueden hacer validaciones para saber si el usuario que hace la petición tiene permisos para ejecutarla o realizar alguna acción especifica cuando se quiera acceder a esa ruta. Estos por norma general deben retornar `true` o `false` para que el proceso pueda continuar.
+Estos son funciones que reciben 2 parametros, $Request i $Response. Con estos se pueden hacer validaciones para saber si el usuario que hace la petición tiene permisos para ejecutarla o realizar alguna acción especifica cuando se quiera acceder a esa ruta. Estos por norma general deben retornar `true` o `false` para que el proceso pueda continuar.
 
 En caso contrario, se mostrará una página de error 500 o un 404.
 
@@ -169,3 +169,153 @@ var $has_and_belongs_to_many = array(
 );
 
 ```
+
+#### Controladores
+Los controladores estan definidos por defecto dentro del directorio `/app/controllers` y son clases cuyas funciones son las acciones que definimos en las rutas. El nombre ha de ser el mismo. Todos de forma obligatoria reciben 2 parametros: $request i $response y son los que utilizamos para después renderizar las vistas.
+
+Ejemplo:
+```
+/**
+* The first class
+* Say Hello to World!
+*/
+class HomeController {
+
+	/**
+	 * Say Hello!
+	 * 
+	 * @param  Object $req 	Request
+	 * @param  Object $res 	Response
+	 * @return void
+	 */
+	public function hello($req, $res) {
+
+		$nombre = "Krang";
+
+		$res->render('home.php', array(
+			msg => $nombre
+		));
+	}
+}
+```
+
+#### Vistas
+Las vistas estan separadas por archivos y son dependientes de una plantilla central. Si desde el controlador no se especifica otra plantilla se usará la que hay definida en la configuración por defecto. Las plantillas pueden utilizar las variables que se adjuntan al render de cada acción, separando de forma efectiva logica de negocio con presentación.
+
+##### Plantillas
+Por defecto la plantilla que se especifica en la configuración de `settings.php` es la que se usara para renderizar las vistas, pero esta puede cambiarse solamente pasando como parametro la variable **layout** 
+
+```
+$res->render("view.php", array(
+	layout => "other_layout.php"
+));
+```
+
+#### Request & Response
+Las variables que utilizamos en el middleware y en todos los controladores nos permiten tener el control de las cabeceras http y como devolvemos el resultado.
+
+> Request
+> Todo lo que tiene que ver con la petición HTTP.
+
+Funciones que puedes utilizar:
+
+**Paremtros de entrada**
+```
+->params['GET']['nombre_param'];//Recupera el parametro GET
+->params['GET']; 		//Recupera todos los parametros GET
+->params['POST']; 		//Recupera los parametros POST
+```
+
+**Sesiones**
+```
+->session($id); 	//Recupera una sesión guardada.
+->session($id, $value); //Guardas un valor dentro de una sesión.
+->session_destroy($id); //Destruye la sesión que especificamos por parametro.
+```
+
+**HTTP REQUEST**
+```
+->get($key); 		// Recupera cualquier parametro de las cabeceras HTTP.
+->getRequestMethod(); 	// Recupera el metodo HTTP (GET, POST, XHR, ETC.)
+->accepts($type); 	// Devuelve TRUE | FALSE si els servidor acepta o no el contenido.
+->ip; 			// Ip del cliente que hace la petición
+->path; 		// Devuelve el PATH_INFO
+->originalUrl; 		// Devuelve la URI que ha echo la petición.
+->hostname; 		// Nombre del host
+->cookies;		// Devuelve las cookies
+```
+
+> Response
+> Variable para responder a la petición, es la que utilizamos cuando hemos acabado con la logica del controlador.
+
+Funciones:
+```
+->cookie($name, $value, $options); // Crea i guarda una cookie
+->download($path, $file_name); 	// Modifica las cabeceras para que la respuesta sea un archivo descargable
+->json($value); // La respuesta no renderiza la vista, es un archivo JSON.
+->location($path); // Hace una redirección por cabecera "Location: $path";
+->redirect($path); // Alias de location()
+->render($view, $values); // Renderiza la vista y guarda los parametros para que puedan usar por esta.
+->flash($type, $value); // Genera un mensaje flash que se puede utilizar en la plantilla
+->status($code); // Identifica el HTTP STATUS de la respuesta
+->send($body); // Printa por pantalla, sin cargar ningúna plantilla, el valor pasado por parametro
+->set($field, $value); // Setea la cabecera con un header("$clave : $valor");
+->type($value); // Identifica el tipo de Content-Type de respuesta
+```
+
+
+
+### ActiveRecord
+Es el encargado de lidiar entre los modelos y las peticiones a la base de datos.
+Los siguientes metodos pueden usarse:
+
+Para recuperar registros
+- one($id) Recupera 1 registro con ese ID.
+- find($ids) Recupera registros segun los id, acepta array y integer.
+- findBy($key, $value) Recupera registro segun field > value `ej. ->findBy("nombre", "Mario")`
+- order($sql_string) Setea el orden de la consulta. `ej. ->order("nombre asc");`
+- random() Recupera 1 registro random
+- last($limit) Recuperamos el/los úiltimo/s registro/s de la base de datos, ordenado por id;
+- all() Recupera todos los registros
+- group($sql_string) Setea el groupby de la consulta.
+- between($first, $last) Recupera todos los registros entre 2 limites
+- join($sql_string) Añade LEFT JOIN para la consulta final
+- form($string) Añade tablas a la consulta
+ 
+Para ejecutar la consulta:
+- getObject() Recupera los datos como Objetos del Modelo especificado.
+- getArray() Recupera los datos como un array asociativo.
+
+Nuevos registros i modificaciones de objetos:
+- create($array) Crea una instancia del modelo según el array asociativo que le pasamos por parametro.
+- remove($object_model) Elimina el objeto que pasamos por referencia.
+- save($object_model) Guarda el objeto en la base de datos. Inserta o Actualiza los datos.
+- removeAll($objects_array) Elimina todos los objetos instanciados de la base de datos.
+
+SQL Nativa
+- raw_query($strSQL) Ejecuta una Query SQL nativa y devuelve los resultados como un Array asociativo
+
+
+### i18n y traducciones
+Para usar las traducciones solo debemos activar los idiomas en la configuración: `/config/i18n.php`.
+Estas traduccones se generan automáticamente y se guardan en forma de archivos separados por codigo de idioma. Estos archivos disponen de un array asociativo con la clave (texto original) y un valor (traduccion para ese idioma).
+
+En las vistas se puede utilizar el objeto **i18n** para usar el multiidioma.
+```
+<p><?=$i18n->_("Bienvenido");?></p>
+``` 
+
+En los controladores debe llamarse el objeto de traducciones con `global`.
+```
+function welcome_message($req, $res){
+	global $i18n;
+	$i18n->_("Bienvenido");
+	// code ...
+}
+```
+
+Con la función _() devolvemos la traducción de la cadena de forma rápida y eficaz. 
+
+> Si en la configuración tenemos activada la directiva: define(i18n_translate, true); esta nos genera automaticamente los archivos en el path que le hemos especificado. 
+
+
