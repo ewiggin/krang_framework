@@ -477,7 +477,7 @@ class ActiveRecord extends DBA {
 	 * @return Object this
 	 */
 	public function join($table, $union="left", $value = '') {
-		$this->Query['join'][] = $union." JOIN ".$table." ON ".$value;
+		$this->Query['join'][] = " ".$union." JOIN ".$table." ON ".$value." ";
 
 		return $this;
 	}
