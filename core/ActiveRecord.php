@@ -19,8 +19,7 @@ class ActiveRecord extends DBA {
 		action => 'SELECT',
 		fields => '',
 		from => '',
-		leftjoin => '',
-		innerjoin => '',
+		join => '',
 		where => '',
 		where_or => '',
 		groupby => '',
@@ -472,13 +471,13 @@ class ActiveRecord extends DBA {
 	}
 
 	/**
-	 * Afegeix LEFT JOIN dins la Query
+	 * Afegeix JOIN dins la Query
 	 * 
-	 * @param  string $string 	Consulta "LEFTJOIN.... ON ....."
+	 * @param  string $string 	Consulta "(LEFT) JOIN.... ON ....."
 	 * @return Object this
 	 */
-	public function join($string='') {
-		$this->Query['leftjoin'][] = $value;
+	public function join($table, $union="left", $value = '') {
+		$this->Query['join'][] = $union." JOIN ".$table." ON ".$value;
 
 		return $this;
 	}
@@ -528,8 +527,11 @@ class ActiveRecord extends DBA {
 		if($this->Query['from'] == '') $strSQL .= ' FROM '.$this->table;
 		else $strSQL .= $this->composeFrom();
 		
-		if($this->Query['leftjoin'] != '') $strSQL .= $this->Query['leftjoin'];
-		if($this->Query['innerjoin'] != '') $strSQL .= $this->Query['innerjoin'];
+		if(!empty($this->Query['join']) && is_array($this->Query['join'])){
+			foreach($this->Query['join'] as $join){
+				$strSQL .= $join;
+			}	
+		} 
 		
 		if($this->Query['where'] != '' || $this->Query['where_or'] != '') {
 			$strSQL .= $this->composeWhere();
