@@ -1,3 +1,5 @@
+![alt krang](https://d13yacurqjgara.cloudfront.net/users/458522/screenshots/2281381/krang_1_1x.jpg)
+
 ## Krang Framework
 The evil way to conquer internet.
 
