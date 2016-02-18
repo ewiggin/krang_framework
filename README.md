@@ -1,5 +1,8 @@
 ![krang framework](https://d13yacurqjgara.cloudfront.net/users/458522/screenshots/2281381/krang_1_1x.jpg)
 
+[![Build Status](https://scrutinizer-ci.com/g/ewiggin/krang_framework/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ewiggin/krang_framework/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ewiggin/krang_framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ewiggin/krang_framework/?branch=master)
+
 ## Krang Framework
 The evil way to conquer internet.
 
