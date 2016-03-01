@@ -71,12 +71,12 @@ class DBA {
 	 * 
 	 * @return Array
 	 */
-	public function getOne($table, $id, $fields = ''){
+	public function getOne($table, $id, $fields = '*'){
 
 		$table = $this->db->escape_string($table);
 		$id = $this->db->escape_string($id);
 
-		return $this->get($table, '*', 'WHERE id = '.$id)->fetch_assoc();
+		return $this->get($table, $fields, 'WHERE id = '.$id)->fetch_assoc();
 	}
 	
 	/**
